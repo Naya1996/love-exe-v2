@@ -575,6 +575,7 @@ function startHearts(){
 
 
 
+
 /* ROMANTIC MUSIC - MP3 */
 
 const audio = new Audio("lagu.mp3");
@@ -601,6 +602,7 @@ async function toggleMusic() {
     console.error(error);
   }
 }
+
 document.addEventListener("pointerdown", async function startMusic() {
   try {
     await audio.play();
@@ -612,6 +614,7 @@ document.addEventListener("pointerdown", async function startMusic() {
     console.log("Musik belum dapat diputar:", error);
   }
 }, { once: true });
+
 </script>
 
 <script type="module">
