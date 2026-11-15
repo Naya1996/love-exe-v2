@@ -552,6 +552,13 @@ import {
   };
 // TAMPILKAN DASHBOARD ADMIN
 if (new URLSearchParams(window.location.search).get("admin") === "1") {
+
+  document.querySelectorAll(
+    "body > *:not(#adminPanel):not(script)"
+  ).forEach(element => {
+    element.style.display = "none";
+  });
+
   document.getElementById("adminPanel").style.display = "block";
 }
 
