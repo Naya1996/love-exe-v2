@@ -600,23 +600,17 @@ async function toggleMusic() {
     alert("Musik gagal diputar. Periksa file lagu.mp3 di GitHub.");
     console.error(error);
   }
-}
-document.addEventListener("click", async function startMusicOnce() {
-  if (!musicPlaying) {
-    try {
-      await audio.play();
-      musicPlaying = true;
+document.addEventListener("pointerdown", async function startMusic() {
+  try {
+    await audio.play();
+    musicPlaying = true;
 
-      const button = document.getElementById("musicButton");
-      if (button) button.innerText = "♫ Musik ON";
-    } catch (error) {
-      console.log("Musik menunggu interaksi berikutnya.");
-    }
+    const button = document.getElementById("musicButton");
+    if (button) button.innerText = "♫ Musik ON";
+  } catch (error) {
+    console.log("Musik belum dapat diputar:", error);
   }
-
-  document.removeEventListener("click", startMusicOnce);
-}, { once: true }); 
-
+}, { once: true });
 </script>
 
 <script type="module">
