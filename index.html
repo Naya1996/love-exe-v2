@@ -396,9 +396,23 @@ runTerminal();
 
 /* ANSWER SYSTEM */
 
-function answer(value){
+
+async function answer(value){
 
  const note=document.getElementById("note").value;
+
+ // Kirim jawaban ke Firebase
+ let saved=false;
+
+ try {
+   if(typeof window.saveLoveAnswer==="function"){
+     saved=await window.saveLoveAnswer(value,note);
+   }else{
+     alert("Firebase belum siap. Periksa koneksi.");
+   }
+ }catch(error){
+   console.error("Firebase error:",error);
+ }
 
  document.getElementById("proposal").style.display="none";
  document.getElementById("result").style.display="block";
@@ -429,11 +443,12 @@ function answer(value){
 
  console.log("Jawaban:",value);
  console.log("Pesan:",note);
+ console.log("Tersimpan di Firebase:",saved);
 
 }
 
-
 /* FLOATING HEARTS */
+
 
 function startHearts(){
 
