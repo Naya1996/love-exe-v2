@@ -600,6 +600,7 @@ async function toggleMusic() {
     alert("Musik gagal diputar. Periksa file lagu.mp3 di GitHub.");
     console.error(error);
   }
+}
 document.addEventListener("pointerdown", async function startMusic() {
   try {
     await audio.play();
