@@ -233,10 +233,10 @@ button:active{
   opacity:0;
  }
 }
-/* FOTO RANA */
+/* ANIMASI FOTO RANA */
 .rana-photo {
   text-align: center;
-  margin: 20px auto;
+  margin: 25px auto;
 }
 
 .rana-photo img {
@@ -245,7 +245,21 @@ button:active{
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid #ff5caa;
-  box-shadow: 0 0 20px #ff5caa;
+  animation: ranaPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes ranaPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 12px #ff5caa;
+  }
+
+  50% {
+    transform: scale(1.07);
+    box-shadow:
+      0 0 20px #ff5caa,
+      0 0 40px #ff4f98;
+  }
 }
  
 </style>
