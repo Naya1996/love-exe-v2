@@ -461,80 +461,33 @@ function startHearts(){
 
 /* ROMANTIC MUSIC - ORIGINAL SYNTH MELODY */
 
-let audio=null;
-let musicPlaying=false;
-let musicTimer=null;
 
-function toggleMusic(){
 
- const button=document.getElementById("musicButton");
+/* ROMANTIC MUSIC - MP3 */
 
- if(musicPlaying){
+const audio = new Audio("lagu.mp3");
+audio.loop = true;
+audio.volume = 0.65;
 
-  clearInterval(musicTimer);
+let musicPlaying = false;
 
-  if(audio){
-   audio.close();
-   audio=null;
+async function toggleMusic() {
+  const button = document.getElementById("musicButton");
+
+  try {
+    if (!musicPlaying) {
+      await audio.play();
+      musicPlaying = true;
+      button.innerText = "♫ Musik ON";
+    } else {
+      audio.pause();
+      musicPlaying = false;
+      button.innerText = "♫ Musik OFF";
+    }
+  } catch (error) {
+    alert("Musik gagal diputar. Periksa file lagu.mp3 di GitHub.");
+    console.error(error);
   }
-
-  musicPlaying=false;
-  button.innerText="♫ Musik OFF";
-
-  return;
- }
-
- const AudioContext=
- window.AudioContext||window.webkitAudioContext;
-
- if(!AudioContext){
-  alert("Browser tidak mendukung audio.");
-  return;
- }
-
- audio=new AudioContext();
-
- audio.resume();
-
- const notes=[
-  261.63,329.63,392,329.63,
-  293.66,349.23,440,349.23
- ];
-
- let n=0;
-
- function play(){
-
-  const oscillator=audio.createOscillator();
-  const gain=audio.createGain();
-
-  oscillator.type="sine";
-  oscillator.frequency.value=notes[n%notes.length];
-
-  gain.gain.setValueAtTime(.0001,audio.currentTime);
-  gain.gain.exponentialRampToValueAtTime(
-   .07,audio.currentTime+.08
-  );
-  gain.gain.exponentialRampToValueAtTime(
-   .0001,audio.currentTime+.55
-  );
-
-  oscillator.connect(gain);
-  gain.connect(audio.destination);
-
-  oscillator.start();
-  oscillator.stop(audio.currentTime+.6);
-
-  n++;
- }
-
- play();
-
- musicTimer=setInterval(play,650);
-
- musicPlaying=true;
- button.innerText="♫ Musik ON";
-
 }
 
 </script>
