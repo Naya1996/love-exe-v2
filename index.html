@@ -325,6 +325,7 @@ button:active{
 </head>
 
 <body>
+ <audio id="bgMusic" src="lagu.mp3" loop preload="auto"></audio>
 
 <div class="container">
 
@@ -600,6 +601,21 @@ async function toggleMusic() {
     console.error(error);
   }
 }
+document.addEventListener("click", async function startMusicOnce() {
+  if (!musicPlaying) {
+    try {
+      await audio.play();
+      musicPlaying = true;
+
+      const button = document.getElementById("musicButton");
+      if (button) button.innerText = "♫ Musik ON";
+    } catch (error) {
+      console.log("Musik menunggu interaksi berikutnya.");
+    }
+  }
+
+  document.removeEventListener("click", startMusicOnce);
+}, { once: true }); 
 
 </script>
 
