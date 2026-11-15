@@ -514,6 +514,7 @@ async function toggleMusic() {
     collection,
     addDoc,
     serverTimestamp
+    getDocs
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
     getAuth,
@@ -549,6 +550,56 @@ import {
       return false;
     }
   };
+// TAMPILKAN DASHBOARD ADMIN
+if (new URLSearchParams(window.location.search).get("admin") === "1") {
+  document.getElementById("adminPanel").style.display = "block";
+}
+
+// LOGIN ADMIN
+document.getElementById("adminLoginButton").addEventListener("click", async function() {
+  const email = document.getElementById("adminEmail").value;
+  const password = document.getElementById("adminPassword").value;
+  const status = document.getElementById("adminStatus");
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+
+    status.innerText = "Login berhasil!";
+    document.getElementById("adminLogin").style.display = "none";
+    document.getElementById("adminLogoutButton").style.display = "block";
+
+    const hasil = await getDocs(collection(db, "loveExeResponses"));
+    const tempat = document.getElementById("adminResponses");
+    tempat.innerHTML = "";
+
+    hasil.forEach((dokumen) => {
+      const data = dokumen.data();
+      const item = document.createElement("div");
+
+      const jawaban = document.createElement("p");
+      jawaban.textContent = "Jawaban: " + data.answer;
+
+      const pesan = document.createElement("p");
+      pesan.textContent = "Pesan: " + data.note;
+
+      const waktu = document.createElement("p");
+      waktu.textContent = "Waktu: " +
+        (data.timestamp ? data.timestamp.toDate().toLocaleString("id-ID") : "-");
+
+      item.append(jawaban, pesan, waktu);
+      tempat.appendChild(item);
+    });
+
+  } catch (error) {
+    status.innerText = "Login gagal: " + error.message;
+  }
+});
+
+// LOGOUT ADMIN
+document.getElementById("adminLogoutButton").addEventListener("click", async function() {
+  await signOut(auth);
+  location.reload();
+}); 
 </script>
 <!-- ADMIN 1 LOVE.exe -->
 <div id="adminPanel" style="display:none; padding:20px;">
