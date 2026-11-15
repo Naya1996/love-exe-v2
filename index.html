@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050914">
+<title>LOVE.exe | Rana Edition</title>
+
+<style>
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
+
+body{
+ min-height:100vh;
+ background:radial-gradient(circle at top,#192541,#050914 70%);
+ color:white;
+ font-family:Consolas,monospace;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ padding:16px;
+ overflow-x:hidden;
+}
+
+.container{
+ width:100%;
+ max-width:520px;
+ background:rgba(7,16,29,.97);
+ border:1px solid #20e6a5;
+ border-radius:18px;
+ padding:22px;
+ box-shadow:0 0 30px #00ffab30;
+ position:relative;
+ overflow:hidden;
+}
+
+header{
+ display:flex;
+ justify-content:space-between;
+ padding-bottom:13px;
+ border-bottom:1px solid #244238;
+ color:#35e9ad;
+ font-size:12px;
+}
+
+.online{
+ color:#35e9ad;
+}
+
+h1{
+ text-align:center;
+ color:#39efb2;
+ font-size:34px;
+ margin-top:25px;
+ text-shadow:0 0 18px #00ffa5;
+}
+
+.subtitle{
+ text-align:center;
+ color:#91a8b9;
+ font-size:11px;
+ margin-top:8px;
+ letter-spacing:2px;
+}
+
+.terminal{
+ background:#020609;
+ border:1px solid #23503f;
+ border-radius:10px;
+ padding:16px;
+ margin-top:25px;
+ min-height:180px;
+ color:#42efb2;
+ font-size:12px;
+ line-height:2;
+ overflow-wrap:anywhere;
+}
+
+.cursor{
+ display:inline-block;
+ animation:blink .7s infinite;
+}
+
+.progress{
+ background:#263746;
+ height:9px;
+ border-radius:20px;
+ margin-top:18px;
+ overflow:hidden;
+}
+
+.bar{
+ width:0%;
+ height:100%;
+ background:linear-gradient(90deg,#00b878,#76ffcb);
+ transition:width .3s;
+}
+
+.status{
+ text-align:center;
+ color:#91a8b9;
+ font-size:11px;
+ margin-top:12px;
+}
+
+.proposal{
+ display:none;
+ text-align:center;
+ animation:fade 1s;
+}
+
+.heart{
+ font-size:75px;
+ margin:20px 0;
+ animation:heartbeat 1.2s infinite;
+ filter:drop-shadow(0 0 15px #ff4f9b);
+}
+
+h2{
+ color:#ff80b5;
+ margin-bottom:15px;
+}
+
+.description{
+ font-size:13px;
+ line-height:1.9;
+ color:#d8e6ee;
+ margin:15px 0;
+}
+
+.question{
+ color:#ff8cbd;
+ font-size:17px;
+ font-weight:bold;
+ margin:20px 0;
+ line-height:1.6;
+}
+
+textarea{
+ width:100%;
+ height:85px;
+ background:#050c16;
+ border:1px solid #315047;
+ color:white;
+ padding:12px;
+ border-radius:9px;
+ font-family:inherit;
+ resize:vertical;
+ margin:10px 0;
+}
+
+button{
+ border:0;
+ padding:13px 22px;
+ border-radius:9px;
+ margin:7px 4px;
+ font-weight:bold;
+ font-family:inherit;
+ cursor:pointer;
+}
+
+button:active{
+ transform:scale(.94);
+}
+
+.yes{
+ background:#ff4f98;
+ color:white;
+ box-shadow:0 0 15px #ff4f9855;
+}
+
+.no{
+ background:#263746;
+ color:white;
+}
+
+.music{
+ background:#123e36;
+ color:#47eeb9;
+ border:1px solid #2c9c79;
+}
+
+.result{
+ display:none;
+ text-align:center;
+ animation:fade 1s;
+}
+
+.result p{
+ color:#d8e6ee;
+ font-size:13px;
+ line-height:1.9;
+ margin-top:15px;
+}
+
+.floating-heart{
+ position:fixed;
+ bottom:-40px;
+ font-size:20px;
+ pointer-events:none;
+ animation:floatUp 5s linear forwards;
+ z-index:10;
+}
+
+.footer{
+ text-align:center;
+ color:#647b8d;
+ font-size:10px;
+ margin-top:25px;
+ line-height:2;
+}
+
+@keyframes blink{
+ 50%{opacity:0}
+}
+
+@keyframes heartbeat{
+ 50%{transform:scale(1.15)}
+}
+
+@keyframes fade{
+ from{opacity:0;transform:translateY(15px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes floatUp{
+ to{
+  transform:translateY(-110vh) rotate(360deg);
+  opacity:0;
+ }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+<span>● LOVE.exe</span>
+<span class="online">● SYSTEM ONLINE</span>
+</header>
+
+<div id="intro">
+
+<h1>LOVE.exe</h1>
+
+<div class="subtitle">
+A PROGRAMMER'S SPECIAL PROPOSAL
+</div>
+
+<div class="terminal">
+<div id="terminalText"></div>
+<span class="cursor">_</span>
+</div>
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<div class="status" id="status">
+Initializing system...
+</div>
+
+</div>
+
+<div class="proposal" id="proposal">
+
+<div class="heart">❤️</div>
+
+<h2>Hello, Rana!</h2>
+
+<div class="description">
+Hai Rana...
+
+Aku sedang menjalankan sebuah program
+yang cukup berbeda dari program lainnya.
+
+Bukan untuk mencari kesalahan sistem,
+bukan pula untuk menguji algoritma.
+
+Tetapi untuk menyampaikan sesuatu
+yang selama ini ingin aku katakan.
+</div>
+
+<div class="question">
+Rana, would you like to be my special person?
+</div>
+
+<p class="description">
+Maukah kamu memberiku kesempatan
+untuk mengenalmu lebih dekat?
+</p>
+
+<textarea id="note"
+placeholder="Tulis pesan untuk Deriilnay (opsional)..."></textarea>
+
+<button class="yes" onclick="answer('YES')">
+YES ❤️
+</button>
+
+<button class="no" onclick="answer('NO')">
+NO
+</button>
+
+<br>
+
+<button class="music" onclick="toggleMusic()" id="musicButton">
+♫ Musik OFF
+</button>
+
+</div>
+
+<div class="result" id="result">
+
+<div class="heart" id="resultHeart">💖</div>
+
+<h2 id="resultTitle"></h2>
+
+<p id="resultMessage"></p>
+
+</div>
+
+<div class="footer">
+DEVELOPED WITH ❤️ BY DERiiLNAY
+<br>
+VERSION 2.0.0
+<br>
+PROJECT: RANA
+</div>
+
+</div>
+
+<script>
+
+/* TERMINAL PROGRAM */
+
+const messages=[
+"> Booting LOVE.exe...",
+"> Initializing system...",
+"> Loading emotional database...",
+"> Activating heart module...",
+"> Running compatibility algorithm...",
+"> Searching special person...",
+"> Target detected: RANA ❤️",
+"> Establishing connection...",
+"> Preparing romantic proposal...",
+"> SYSTEM READY!"
+];
+
+let index=0;
+
+function runTerminal(){
+
+ const terminal=document.getElementById("terminalText");
+ const bar=document.getElementById("bar");
+ const status=document.getElementById("status");
+
+ if(index<messages.length){
+
+  terminal.innerHTML+=messages[index]+"<br>";
+
+  let percent=Math.round(
+   ((index+1)/messages.length)*100
+  );
+
+  bar.style.width=percent+"%";
+
+  status.innerText="PROCESSING "+percent+"%";
+
+  index++;
+
+  setTimeout(runTerminal,750);
+
+ }else{
+
+  status.innerText="SYSTEM SUCCESS — 100%";
+
+  setTimeout(function(){
+
+   document.getElementById("intro").style.display="none";
+
+   document.getElementById("proposal").style.display="block";
+
+  },1000);
+
+ }
+}
+
+runTerminal();
+
+
+/* ANSWER SYSTEM */
+
+function answer(value){
+
+ const note=document.getElementById("note").value;
+
+ document.getElementById("proposal").style.display="none";
+ document.getElementById("result").style.display="block";
+
+ if(value==="YES"){
+
+  document.getElementById("resultHeart").innerText="💖";
+
+  document.getElementById("resultTitle").innerText=
+  "CONNECTION SUCCESSFUL!";
+
+  document.getElementById("resultMessage").innerText=
+  "Terima kasih, Rana! ❤️ Semoga ini menjadi awal cerita yang indah. Mari saling mengenal dengan jujur, tulus, dan saling menghargai.";
+
+  startHearts();
+
+ }else{
+
+  document.getElementById("resultHeart").innerText="🤍";
+
+  document.getElementById("resultTitle").innerText=
+  "RESPONSE RECEIVED";
+
+  document.getElementById("resultMessage").innerText=
+  "Terima kasih sudah menjawab, Rana. Tidak masalah. Aku tetap menghargai pilihan dan perasaanmu.";
+
+ }
+
+ console.log("Jawaban:",value);
+ console.log("Pesan:",note);
+
+}
+
+
+/* FLOATING HEARTS */
+
+function startHearts(){
+
+ setInterval(function(){
+
+  const heart=document.createElement("div");
+
+  heart.className="floating-heart";
+  heart.innerText=["❤️","💖","💕","💗","💘"][
+   Math.floor(Math.random()*5)
+  ];
+
+  heart.style.left=Math.random()*95+"vw";
+
+  document.body.appendChild(heart);
+
+  setTimeout(function(){
+   heart.remove();
+  },5000);
+
+ },350);
+
+}
+
+
+/* ROMANTIC MUSIC - ORIGINAL SYNTH MELODY */
+
+let audio=null;
+let musicPlaying=false;
+let musicTimer=null;
+
+function toggleMusic(){
+
+ const button=document.getElementById("musicButton");
+
+ if(musicPlaying){
+
+  clearInterval(musicTimer);
+
+  if(audio){
+   audio.close();
+   audio=null;
+  }
+
+  musicPlaying=false;
+  button.innerText="♫ Musik OFF";
+
+  return;
+ }
+
+ const AudioContext=
+ window.AudioContext||window.webkitAudioContext;
+
+ if(!AudioContext){
+  alert("Browser tidak mendukung audio.");
+  return;
+ }
+
+ audio=new AudioContext();
+
+ audio.resume();
+
+ const notes=[
+  261.63,329.63,392,329.63,
+  293.66,349.23,440,349.23
+ ];
+
+ let n=0;
+
+ function play(){
+
+  const oscillator=audio.createOscillator();
+  const gain=audio.createGain();
+
+  oscillator.type="sine";
+  oscillator.frequency.value=notes[n%notes.length];
+
+  gain.gain.setValueAtTime(.0001,audio.currentTime);
+  gain.gain.exponentialRampToValueAtTime(
+   .07,audio.currentTime+.08
+  );
+  gain.gain.exponentialRampToValueAtTime(
+   .0001,audio.currentTime+.55
+  );
+
+  oscillator.connect(gain);
+  gain.connect(audio.destination);
+
+  oscillator.start();
+  oscillator.stop(audio.currentTime+.6);
+
+  n++;
+ }
+
+ play();
+
+ musicTimer=setInterval(play,650);
+
+ musicPlaying=true;
+ button.innerText="♫ Musik ON";
+
+}
+
+</script>
+
+</body>
+</html>
