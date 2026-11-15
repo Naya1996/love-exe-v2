@@ -492,5 +492,45 @@ async function toggleMusic() {
 
 </script>
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+ const firebaseConfig = {
+  apiKey: "AIzaSyB6DJF50A70TXP8KQPwpc7hZU3w2ubbMCM",
+  authDomain: "engineering-love-proposal.firebaseapp.com",
+  databaseURL: "https://engineering-love-proposal-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "engineering-love-proposal",
+  storageBucket: "engineering-love-proposal.firebasestorage.app",
+  messagingSenderId: "940731404805",
+  appId: "1:940731404805:web:b637bcd7dc265a47a4826c"
+}; 
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.saveLoveAnswer = async function(answer, note) {
+    try {
+      await addDoc(collection(db, "loveExeResponses"), {
+        answer: answer,
+        note: note || "",
+        timestamp: serverTimestamp()
+      });
+      console.log("Jawaban berhasil disimpan!");
+      return true;
+    } catch (error) {
+      console.error("Firebase error:", error);
+      alert("Jawaban belum berhasil disimpan.");
+      return false;
+    }
+  };
+</script>
+
 </body>
 </html>
