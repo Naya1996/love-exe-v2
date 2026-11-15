@@ -262,6 +262,52 @@ button:active{
   }
 }
  
+ /* HATI MENGELILINGI FOTO */
+.rana-photo {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  margin: 25px auto;
+  text-align: center;
+}
+
+.photo-heart {
+  position: absolute;
+  font-size: 22px;
+  animation: heartFloat 2.5s ease-in-out infinite;
+}
+
+.heart1 {
+  top: 0;
+  left: 15px;
+}
+
+.heart2 {
+  top: 10px;
+  right: 10px;
+  animation-delay: .5s;
+}
+
+.heart3 {
+  bottom: 5px;
+  right: 15px;
+  animation-delay: 1s;
+}
+
+.heart4 {
+  bottom: 10px;
+  left: 5px;
+  animation-delay: 1.5s;
+}
+
+@keyframes heartFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.2);
+  }
+}
 </style>
 </head>
 
@@ -300,6 +346,11 @@ Initializing system...
 <div class="proposal" id="proposal">
  <div class="rana-photo">
   <img src="Rana.jpg" alt="Foto Rana">
+
+  <span class="photo-heart heart1">💗</span>
+  <span class="photo-heart heart2">💕</span>
+  <span class="photo-heart heart3">💖</span>
+  <span class="photo-heart heart4">💗</span>
 </div>
 
 <div class="heart">❤️</div>
