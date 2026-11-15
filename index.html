@@ -515,7 +515,11 @@ async function toggleMusic() {
     addDoc,
     serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
  const firebaseConfig = {
   apiKey: "AIzaSyB6DJF50A70TXP8KQPwpc7hZU3w2ubbMCM",
   authDomain: "engineering-love-proposal.firebaseapp.com",
